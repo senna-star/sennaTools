@@ -1,30 +1,96 @@
-# Responsive Portfolio Website
+🌐 SENNAVERSE — Personal Web by Senna
 
-This is a portfolio website created using **JavaScript**, **HTML**, and **CSS**.
-Live Demo: [https://prasadlakhara.github.io/portfolio-template/](https://prasadlakhara.github.io/portfolio-template/)
-## Steps to Clone and Customize
+Selamat datang di Sennaverse, dunia digital pribadiku!
+Website ini adalah tempat aku mengekspresikan diri lewat desain, teknologi, dan sedikit sentuhan neon aesthetic ✨
 
-1. **Clone the Repository**
-   Clone this website repository from GitHub:
-   ```bash
-   git clone <repository_url>
-   ```
-
-2. **Update Data**
-   Modify the data in the constants file to reflect your personal details.
-   And need to change in html files
-
-4. **Run Locally**
-   Serve the project locally and check if all changes are reflected:
-   ```bash
-   # For example, using Python's HTTP server
-   python -m http.server
-   ```
-   Open your browser and navigate to `http://localhost:8000`.
-
-5. **Host Your Website**
-   Use hosting platforms like **Netlify**, **Vercel**, or **GitHub Pages** to deploy and host your website.
 
 ---
 
-Enjoy showcasing your personalized portfolio!
+📁 Isi Project
+
+index.html — Beranda utama
+
+tentang-senna.html — Halaman tentang diriku 🧠
+
+payment/ — Sistem pembayaran ala Senna 💸
+
+tools1.html — Kumpulan tools SennaXploit (akses dengan password)
+
+images/ — Logo dan ilustrasi visual
+
+style.css — Desain neon dan efek blur modern
+
+script.js — Efek ketik, animasi, dan interaksi
+
+
+
+---
+
+🎨 Teknologi yang Digunakan
+
+HTML5 & CSS3 — Struktur & desain responsif
+
+JavaScript — Efek interaktif & animasi
+
+Font Google & Font Neon — Teks yang hidup
+
+Vercel — Untuk hosting cepat & gratis
+
+GitHub — Versi kontrol & kolaborasi
+
+
+
+---
+
+💬 Fitur Menarik
+
+🌈 Tema neon aesthetic
+
+🌸 Pesan rahasia + bunga gerbera
+
+🧠 Cerita pribadi dan filosofi hidup
+
+🛠️ Tools keamanan siber buatan sendiri
+
+🐧 Cinta terhadap pinguin! 🐧
+
+
+
+---
+
+🚀 Cara Menjalankan
+
+1. Clone repo:
+
+git clone https://github.com/sennaxploit/sennaverse.git
+
+
+2. Buka index.html di browser
+
+
+3. Untuk akses di server, deploy ke Vercel atau hosting pilihanmu
+
+
+
+
+---
+
+🤝 Terhubung Denganku
+
+🌐 Instagram
+
+🐱 GitHub
+
+📱 TikTok
+
+💬 WhatsApp Channel
+
+
+
+---
+
+> Dibuat dengan ❤️ dan 💻 oleh Senna
+Karena semua orang punya cerita, dan ini ceritaku.
+
+
+
