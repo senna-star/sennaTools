@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Phone Number Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Share Tech Mono', monospace;
+      height: 100%;
+      background-color: #000;
+      background-image: url('https://l.top4top.io/p_3473nbtu80.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #0f0;
+      overflow-x: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    h1 {
+      font-size: 2em;
+      text-shadow: 0 0 10px #0f0;
+      margin-bottom: 30px;
+      animation: glowTitle 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowTitle {
+      from { text-shadow: 0 0 10px #0f0; }
+      to { text-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc; }
+    }
+
+    input, button {
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+      margin: 6px;
+      font-family: inherit;
+    }
+
+    input {
+      width: 280px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #0f0;
+      border: 1px solid #0f0;
+      text-align: center;
+    }
+
+    button {
+      background: #000;
+      color: #0f0;
+      border: 1px solid #0f0;
+      box-shadow: 0 0 10px #0f0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    button:hover:enabled {
+      background: #0f0;
+      color: #000;
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #0f0;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 5px #0f0; }
+      50% { box-shadow: 0 0 20px #0f0, 0 0 40px #0f0; }
+      100% { box-shadow: 0 0 5px #0f0; }
+    }
+
+    #result {
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 12px;
+      width: 95%;
+      max-width: 500px;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px #0f0;
+      display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+
+    #result.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    iframe {
+      margin-top: 15px;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📱 Phone Number Tracker</h1>
+  <input type="text" id="phoneInput" placeholder="Enter phone number with +">
+  <button id="trackBtn" onclick="trackPhone()">Track</button>
+
+  <div id="result"></div>
+
+  <script>
+    async function trackPhone() {
+      const phone = document.getElementById('phoneInput').value.trim();
+      const button = document.getElementById('trackBtn');
+      const resultDiv = document.getElementById('result');
+
+      if (!phone) {
+        alert('Please enter a phone number.');
+        return;
+      }
+
+      button.textContent = "Loading...";
+      button.disabled = true;
+
+      const apiKey = '6f592f6ff7b94d67bf56f47ee938db6b';
+      const url = `https://phonevalidation.abstractapi.com/v1/?api_key=${apiKey}&phone=${encodeURIComponent(phone)}`;
+
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data && data.valid) {
+          resultDiv.innerHTML = `
+            <p><strong>Phone:</strong> ${data.phone}</p>
+            <p><strong>Country:</strong> ${data.country.name} (${data.country.code})</p>
+            <p><strong>Region:</strong> ${data.location || '-'}</p>
+            <p><strong>Carrier:</strong> ${data.carrier || '-'}</p>
+            <p><strong>Type:</strong> ${data.type || '-'}</p>
+            <iframe
+              src="https://maps.google.com/maps?q=${encodeURIComponent(data.location || data.country.name)}&hl=es&z=10&output=embed">
+            </iframe>
+          `;
+          resultDiv.classList.add('show');
+        } else {
+          resultDiv.innerHTML = `<p style="color:red;">Phone number not found or invalid.</p>`;
+          resultDiv.classList.add('show');
+        }
+      } catch (err) {
+        alert("Failed to fetch phone data.");
+        console.error(err);
+      } finally {
+        button.textContent = "Track";
+        button.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>

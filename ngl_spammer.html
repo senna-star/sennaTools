@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NGL Sender Premium</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #00ff00;
+      font-family: 'Share Tech Mono', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .terminal {
+      background: #111;
+      padding: 30px;
+      border: 2px solid #0f0;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 0 20px #00ff00aa;
+    }
+
+    h1 {
+      text-align: center;
+      color: #0f0;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-size: 14px;
+    }
+
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      background: #000;
+      border: 1px solid #0f0;
+      color: #0f0;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 14px;
+    }
+
+    button {
+      margin-top: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0f0;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .status {
+      margin-top: 20px;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+    <h1>[ NGL SENDER ]</h1>
+
+    <label for="username">Target Username:</label>
+    <input type="text" id="username" placeholder="contoh: namapengguna" />
+
+    <label for="message">Pesan Anonim:</label>
+    <textarea id="message" rows="4" placeholder="Tulis pesanmu..."></textarea>
+
+    <button onclick="startSending()">🔁 KIRIM LOOP</button>
+    <button onclick="stopLoop()">🛑 STOP</button>
+
+    <div class="status" id="status">Status: Menunggu input...</div>
+  </div>
+
+  <script>
+    let stop = false;
+    let counter = 0;
+
+    function stopLoop() {
+      stop = true;
+      updateStatus(`[🛑] Pengiriman dihentikan oleh pengguna.`);
+    }
+
+    function updateStatus(msg) {
+      const time = new Date().toLocaleTimeString();
+      document.getElementById("status").innerText = `[${time}] ${msg}`;
+    }
+
+    async function startSending() {
+      const username = document.getElementById("username").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if (!username || !message) {
+        updateStatus("[!] Username dan pesan tidak boleh kosong.");
+        return;
+      }
+
+      stop = false;
+      counter = 0;
+      loopSend(username, message);
+    }
+
+    async function loopSend(username, message) {
+      while (!stop) {
+        try {
+          const deviceId = [...crypto.getRandomValues(new Uint8Array(21))]
+            .map(b => b.toString(16).padStart(2, '0'))
+            .join('');
+
+          const body = `username=${encodeURIComponent(username)}&question=${encodeURIComponent(message)}&deviceId=${deviceId}&gameSlug=&referrer=`;
+
+          const response = await fetch("https://ngl.link/api/submit", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+              "Referer": `https://ngl.link/${username}`,
+              "Origin": "https://ngl.link"
+            },
+            body
+          });
+
+          if (response.ok) {
+            counter++;
+            updateStatus(`[✔] Pesan ke-${counter} berhasil dikirim.`);
+          } else {
+            updateStatus(`[✖] Gagal kirim: ${response.statusText}`);
+          }
+
+        } catch (error) {
+          updateStatus(`[!] Error: ${error.message}`);
+          break;
+        }
+
+        // Delay antar kirim (ubah sesuai kebutuhan)
+        await new Promise(resolve => setTimeout(resolve, 1000)); // 3 detik
+      }
+    }
+  </script>
+</body>
+</html>

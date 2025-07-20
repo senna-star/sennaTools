@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tentang Senna</title>
+
+  <!-- Font Poppins + Winky Rough -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://img1.pixhost.to/images/7209/621951741_kenjaa.jpg') center/cover no-repeat fixed;
+      color: #fff;
+      padding: 0;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 30px;
+    }
+
+    header img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      backdrop-filter: blur(6px);
+    }
+
+    h1 {
+      font-size: 4em;
+      margin: 20px 0 10px;
+      color: #00ff99;
+      font-family: 'Winky Rough', cursive;
+      text-shadow:
+        0 0 5px #00ff99,
+        0 0 10px #00ff99,
+        0 0 20px #00ff99,
+        0 0 40px #00ffcc;
+      animation: rgbColorChange 6s infinite, pulseGlow 2s ease-in-out infinite;
+    }
+
+    h2 {
+      font-weight: 300;
+      font-size: 1.2em;
+      color: #eee;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .section {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-out;
+      margin: 40px 20px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      padding: 30px;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2em; }
+      .section { margin: 30px 10px; }
+    }
+
+    @keyframes rgbColorChange {
+      0%, 100% { color: #00ff99; text-shadow: 0 0 10px #00ff99; }
+      25% { color: #00ffff; text-shadow: 0 0 10px #00ffff; }
+      50% { color: #ff00ff; text-shadow: 0 0 10px #ff00ff; }
+      75% { color: #ffff00; text-shadow: 0 0 10px #ffff00; }
+    }
+
+    @keyframes pulseGlow {
+      0% { text-shadow: 0 0 10px #00ff99; }
+      50% { text-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc; }
+      100% { text-shadow: 0 0 10px #00ff99; }
+    }
+
+    .bunga {
+      width: 80px;
+      height: auto;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: munculBunga 1s forwards ease;
+    }
+
+    .bunga:nth-child(1) { animation-delay: 0.2s; }
+    .bunga:nth-child(2) { animation-delay: 0.5s; }
+    .bunga:nth-child(3) { animation-delay: 0.8s; }
+
+    @keyframes munculBunga {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="https://i.top4top.io/p_3488lk7n60.jpg" alt="Foto Senna" />
+    <h1>Halo, aku Senna</h1>
+    <h2>aku ingin berbagi cerita dengan kalian</h2>
+  </header>
+
+  <div class="container">
+
+    <div class="section">
+      <p>
+        Aku adalah seseorang yang menyukai dunia teknologi, terutama pemrograman dan keamanan siber. Saat ini aku tinggal di Indonesia dan aktif di beberapa platform seperti GitHub, TikTok, dan WhatsApp.
+      </p>
+    </div>
+
+    <div class="section">
+      <p>
+        Beberapa hobi yang aku tekuni adalah membuat tools, coding, dan mendesain web. Bahasa pemrograman favoritku antara lain Python, HTML, CSS, dan JavaScript.
+      </p>
+    </div>
+
+    <div class="section">
+      <p>
+        Aku juga suka menonton J-Drama alias drama Jepang. Salah satu hal menarik tentang diriku, banyak orang mengira aku perempuan—mungkin karena aku suka tema pink di HP-ku 😄.
+      </p>
+    </div>
+
+    <div class="section">
+      <p>
+        Sejak kecil, aku pernah mengalami perundungan dan dikucilkan. Tapi sekarang, aku mencoba berdamai dengan masa lalu dan menjalani hidup dengan penuh warna (dan pink 🌸).
+      </p>
+    </div>
+
+    <div class="section">
+      <p>
+        Nah, ada satu hal lagi yang penting banget: aku cinta banget sama pinguin 🐧!  
+        Mereka lucu, lembut, dan suka hidup bareng dalam kelompok. Aku merasa pinguin itu seperti diriku—mungkin beda dari yang lain, tapi tetap hangat dan setia.  
+        Kalau suatu saat aku bisa pelihara pinguin (atau ke Antartika), itu impian banget!
+      </p>
+    </div>
+
+    <div class="section">
+      <p>
+        Terima kasih karena sudah mengenalku lebih dekat. Aku cinta kalian semua yang sudah mendukungku sejauh ini. Sampai jumpa di kesempatan berikutnya. 💗<br><br>
+        Love u "S"<br>
+        ©13と7
+      </p>
+    </div>
+
+    <!-- Tambahan tombol dan bunga -->
+    <div style="text-align: center; margin: 40px 0;">
+      <button onclick="tampilkanBunga()" style="padding: 12px 24px; font-size: 1rem; background: dodgerblue; color: #000; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 0 12px dodgerblue;">
+        Tampilkan Pesan Rahasia 💙
+      </button>
+    </div>
+
+    <div id="pesanCinta" style="text-align: center; opacity: 0; transition: opacity 1s ease; max-width: 600px; margin: auto;">
+      <p style="font-size: 1.2rem; margin-bottom: 20px; color: #ffccff; text-shadow: 0 0 12px #ff99ff;">
+        Aku ingin kamu tahu satu hal...  
+        <br><strong style="font-size: 1.5rem;">"I love u until the that day i die." 💗</strong>
+      </p>
+      <div style="display: flex; justify-content: center; gap: 20px;">
+       
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Dibuat dengan ❤️ oleh Senna
+  </footer>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+    sections.forEach(section => observer.observe(section));
+
+    function tampilkanBunga() {
+      const div = document.getElementById("pesanCinta");
+      div.style.opacity = "1";
+    }
+  </script>
+</body>
+</html>

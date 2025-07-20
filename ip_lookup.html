@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advanced IP Lookup Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Share Tech Mono', monospace;
+      background: #000;
+      color: #0f0;
+      overflow-x: hidden;
+      height: 100%;
+    }
+
+    body {
+      background-image: url('https://l.top4top.io/p_3473nbtu80.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 20px;
+      text-align: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px #0f0;
+      animation: glowTitle 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowTitle {
+      from { text-shadow: 0 0 10px #0f0; }
+      to { text-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc; }
+    }
+
+    input, button {
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+      margin: 6px;
+      font-family: inherit;
+    }
+
+    input {
+      width: 280px;
+      background: rgba(0, 0, 0, 0.5);
+      color: #0f0;
+      border: 1px solid #0f0;
+      text-align: center;
+    }
+
+    button {
+      background: #000;
+      color: #0f0;
+      border: 1px solid #0f0;
+      box-shadow: 0 0 10px #0f0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    button:hover:enabled {
+      background: #0f0;
+      color: #000;
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #0f0;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 5px #0f0; }
+      50% { box-shadow: 0 0 20px #0f0, 0 0 40px #0f0; }
+      100% { box-shadow: 0 0 5px #0f0; }
+    }
+
+    #result, #history {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 12px;
+      width: 95%;
+      max-width: 500px;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 0 20px #0f0;
+      display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+
+    #result.show, #history.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    iframe {
+      margin-top: 12px;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 10px;
+      border-collapse: collapse;
+      color: #0f0;
+    }
+
+    th, td {
+      padding: 8px;
+      border: 1px solid #0f0;
+    }
+
+    th {
+      background-color: rgba(0, 255, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Advanced IP Lookup</h1>
+  <input type="text" id="ipInput" placeholder="Enter IP address...">
+  <button onclick="lookupIP()">🔍 Search</button>
+  <button onclick="exportHistory()">📄 Export</button>
+
+  <div id="result"></div>
+  <div id="history">
+    <h3>Search History</h3>
+    <table id="historyTable">
+      <tr><th>IP</th><th>City</th><th>Country</th><th>ISP</th><th>Time</th></tr>
+    </table>
+  </div>
+
+  <script>
+    const historyList = [];
+
+    function showElement(id) {
+      const el = document.getElementById(id);
+      el.classList.add('show');
+    }
+
+    function updateHistory(data) {
+      historyList.push({
+        ip: data.query,
+        city: data.city,
+        country: data.country,
+        isp: data.isp,
+        time: new Date().toLocaleString()
+      });
+
+      const table = document.getElementById('historyTable');
+      const row = table.insertRow();
+      row.innerHTML = `
+        <td>${data.query}</td>
+        <td>${data.city}</td>
+        <td>${data.country}</td>
+        <td>${data.isp}</td>
+        <td>${new Date().toLocaleString()}</td>
+      `;
+      showElement('history');
+    }
+
+    function exportHistory() {
+      let csv = "IP,City,Country,ISP,Time\n";
+      historyList.forEach(e => {
+        csv += `${e.ip},${e.city},${e.country},${e.isp},${e.time}\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "ip_lookup_history.csv";
+      link.style.display = "none";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    async function lookupIP() {
+      const ip = document.getElementById('ipInput').value.trim();
+      const result = document.getElementById('result');
+      if (!ip) return alert("Please enter an IP address.");
+
+      result.innerHTML = "Loading...";
+      result.classList.remove('show');
+
+      try {
+        const res = await fetch(`http://ip-api.com/json/${ip}`);
+        const data = await res.json();
+
+        if (data.status === 'success') {
+          result.innerHTML = `
+            <p><b>IP:</b> ${data.query}</p>
+            <p><b>Country:</b> ${data.country}</p>
+            <p><b>Region:</b> ${data.regionName}</p>
+            <p><b>City:</b> ${data.city}</p>
+            <p><b>ISP:</b> ${data.isp}</p>
+            <p><b>Timezone:</b> ${data.timezone}</p>
+            <p><b>Coords:</b> ${data.lat}, ${data.lon}</p>
+            <iframe height="200" src="https://maps.google.com/maps?q=${data.lat},${data.lon}&hl=es&z=14&output=embed"></iframe>
+          `;
+          updateHistory(data);
+        } else {
+          result.innerHTML = `<p style="color:red;">Invalid IP or not found!</p>`;
+        }
+        showElement('result');
+      } catch (err) {
+        alert("Failed to fetch IP info.");
+        console.error(err);
+      }
+    }
+  </script>
+</body>
+</html>

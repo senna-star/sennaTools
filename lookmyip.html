@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Look My Ip Addres</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #0f0;
+      font-family: 'Share Tech Mono', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .terminal {
+      background: #111;
+      padding: 30px;
+      border: 2px solid #0f0;
+      border-radius: 12px;
+      width: 95%;
+      max-width: 600px;
+      box-shadow: 0 0 20px #00ff00aa;
+    }
+
+    h1 {
+      text-align: center;
+      color: #0f0;
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      background: #000;
+      border: 1px solid #0f0;
+      color: #0f0;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 14px;
+    }
+
+    button {
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0f0;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+
+    iframe {
+      margin-top: 15px;
+      border-radius: 10px;
+      width: 100%;
+      height: 220px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+    <h1>[ Look My Ip Address ]</h1>
+    <input type="text" id="ipInput" placeholder="klik tombol bawah">
+    <button onclick="lookupIP()">🔍 Cek IP</button>
+    <button onclick="getMyIP()">🌐 Lihat IP Saya</button>
+    <div class="result" id="result">Status: Menunggu input...</div>
+    <div id="mapContainer" style="display:none;"></div>
+  </div>
+
+  <script>
+    async function lookupIP(ip = null) {
+      const result = document.getElementById('result');
+      const map = document.getElementById('mapContainer');
+      const ipInput = document.getElementById('ipInput');
+
+      if (!ip) ip = ipInput.value.trim();
+      if (!ip) {
+        result.innerText = "[!] Masukkan IP terlebih dahulu.";
+        map.style.display = "none";
+        return;
+      }
+
+      result.innerText = "[...] Mengambil data IP...";
+      map.style.display = "none";
+
+      try {
+        const res = await fetch(`https://ip-api.com/json/${ip}`);
+        const data = await res.json();
+
+        if (data.status === "success") {
+          result.innerText = `
+[✔] Alamat IP     : ${data.query}
+[🌍] Negara        : ${data.country}
+[🏙️] Kota          : ${data.city}
+[🛰️] ISP           : ${data.isp}
+[🕒] Zona Waktu    : ${data.timezone}
+[📍] Koordinat     : ${data.lat}, ${data.lon}
+          `;
+          map.innerHTML = `
+<iframe src="https://maps.google.com/maps?q=${data.lat},${data.lon}&z=14&output=embed"></iframe>
+          `;
+          map.style.display = "block";
+        } else {
+          result.innerText = "[✖] IP tidak ditemukan atau invalid.";
+        }
+      } catch (err) {
+        result.innerText = `[!] Gagal mengambil data: ${err.message}`;
+      }
+    }
+
+    async function getMyIP() {
+      const res = await fetch("https://api64.ipify.org?format=json");
+      const data = await res.json();
+      document.getElementById('ipInput').value = data.ip;
+      lookupIP(data.ip);
+    }
+  </script>
+</body>
+</html>

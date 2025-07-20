@@ -1,0 +1,301 @@
+<!DOCTYPE html><html lang="id"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sennaverse - Menu Utama</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #0a0a1a;
+      --bg-light: #f0f0f0;
+      --primary-neon: #00e6e6;
+      --secondary-neon: #aaff00;
+      --accent-glow: #ff00ff;
+      --text-light: #e0e0e0;
+      --card-bg-transparent: rgba(255, 255, 255, 0.05);
+    }* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 100px;
+  overflow-x: hidden;
+  position: relative;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.light-theme {
+  background: var(--bg-light);
+  color: #111;
+}
+
+.background-effect {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(circle at 20% 20%, #00e6e633 0%, transparent 40%),
+              radial-gradient(circle at 80% 70%, #ff00ff33 0%, transparent 50%);
+  z-index: -1;
+  animation: backgroundMove 30s linear infinite;
+}
+
+@keyframes backgroundMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+.main-container {
+  background: var(--card-bg-transparent);
+  padding: 30px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.logo-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  display: block;
+  box-shadow: 0 0 20px var(--primary-neon);
+  transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+  transform: scale(1.05) rotate(5deg);
+}
+
+h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #fff;
+  text-shadow: 0 0 10px var(--primary-neon);
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.btn i {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: var(--primary-neon);
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-4px);
+  border-color: var(--primary-neon);
+  box-shadow: 0 0 15px var(--primary-neon);
+}
+
+.social-menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
+  backdrop-filter: blur(6px);
+  border-top: 1px solid var(--primary-neon);
+  z-index: 50;
+}
+
+.social-menu a {
+  color: var(--primary-neon);
+  font-size: 1.6rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+  text-shadow: 0 0 8px var(--primary-neon);
+}
+
+.social-menu a:hover {
+  color: var(--secondary-neon);
+  transform: scale(1.2);
+  text-shadow: 0 0 12px var(--secondary-neon);
+}
+
+.fab-menu {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--primary-neon);
+  color: var(--primary-neon);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  cursor: pointer;
+  box-shadow: 0 0 10px var(--primary-neon);
+  z-index: 99;
+}
+
+.fab-sub {
+  position: fixed;
+  right: 27px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--primary-neon);
+  color: var(--primary-neon);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 0 8px var(--primary-neon);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0);
+  transition: all 0.4s ease;
+  z-index: 98;
+}
+
+.fab-sub.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.fab-sub.music-btn.active {
+  transform: translateY(520px);
+}
+.fab-sub.theme-btn.active {
+  transform: translateY(570px);
+}
+.fab-sub.chatbot-btn.active {
+  transform: translateY(620px);
+}
+
+.chatbox {
+  position: fixed;
+  bottom: 140px;
+  right: 20px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--primary-neon);
+  padding: 10px;
+  border-radius: 10px;
+  width: 250px;
+  display: none;
+  color: white;
+  font-size: 0.9rem;
+  box-shadow: 0 0 10px var(--primary-neon);
+}
+
+  </style>
+</head>
+<body>
+  <div class="background-effect"></div>
+  <div class="main-container">
+    <img src="https://i.top4top.io/p_3488lk7n60.jpg" alt="Logo Senna" class="logo-img">
+    <h1 id="typing"></h1>
+    <p>Selamat datang di dimensi digital Senna. Jelajahi Tools, Proyek, dan Informasi Penting lainnya.</p>
+    <div class="button-grid">
+<a href="#" class="btn" onclick="aksesTools(); return false;">
+  <i class="fas fa-microchip"></i><span>Tools Sennaxploit</span>
+</a>
+      <a href="payment/paymentku.html" class="btn"><i class="fas fa-wallet"></i><span>Web Payment</span></a>
+      <a href="portoo/porto.html" class="btn"><i class="fas fa-project-diagram"></i><span>Portofolio</span></a>
+      <a href="about_me.html" class="btn"><i class="fas fa-user"></i><span>About Me</span></a>
+        <a href="https://whatsapp.com/channel/0029Vb5u9YrK0IBkzktBI11N
+        " class="btn"><i class="fab fa-whatsapp"></i><span>Channel WhatsApp</span></a>
+      <a href="others.html" class="btn"><i class="fas fa-globe"></i><span>Jelajahi Lainnya</span></a>
+    </div>
+  </div>  <div class="fab-menu" onclick="toggleFabMenu()"><i class="fas fa-cogs"></i></div>
+  <div class="fab-sub music-btn" onclick="toggleMusic()"><i class="fas fa-music"></i></div>
+  <div class="fab-sub theme-btn" onclick="toggleTheme()"><i class="fas fa-adjust"></i></div>
+  <div class="fab-sub chatbot-btn" onclick="toggleChatbot()"><i class="fas fa-robot"></i></div>  <div class="chatbox" id="chatbox">
+    <p><strong>SennaBot:</strong> Halo 👋 Ada yang bisa aku bantu?</p>
+  </div>  <audio id="background-music" loop>
+    <source src="lagu.mp3" type="audio/mpeg">
+  </audio>  <div class="social-menu">
+    <a href="https://instagram.com/senna" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://tiktok.com/@supersennaaak" target="_blank"><i class="fab fa-tiktok"></i></a>
+    <a href="https://github.com/sennaxploit" target="_blank"><i class="fab fa-github"></i></a>
+    <a href="https://wa.me/6283125914041" target="_blank"><i class="fab fa-whatsapp"></i></a>
+  </div>  <script>
+    const music = document.getElementById("background-music");
+    let isPlaying = false;
+    function toggleMusic() {
+      isPlaying ? music.pause() : music.play();
+      isPlaying = !isPlaying;
+    }
+    function aksesTools() {
+  const password = prompt("Masukkan password untuk mengakses Tools Sennaxploit:");
+  const kunci = "sennaaak"; // Ganti dengan password rahasiamu
+
+  if (password === kunci) {
+    window.location.href = "tools1.html";
+  } else if (password === null || password === "") {
+    alert("Akses dibatalkan.");
+  } else {
+    alert("Password salah! Akses ditolak.");
+  }
+}
+
+    function toggleTheme() {
+      document.body.classList.toggle("light-theme");
+    }
+
+    function toggleChatbot() {
+      const chat = document.getElementById("chatbox");
+      chat.style.display = chat.style.display === "none" ? "block" : "none";
+    }
+
+    function toggleFabMenu() {
+      document.querySelector('.music-btn').classList.toggle('active');
+      document.querySelector('.theme-btn').classList.toggle('active');
+      document.querySelector('.chatbot-btn').classList.toggle('active');
+    }
+
+    const typingEl = document.getElementById("typing");
+    const teks = "SENNAVERSE";
+    let i = 0;
+    function ketik() {
+      if (i < teks.length) {
+        typingEl.innerHTML += teks.charAt(i);
+        i++;
+        setTimeout(ketik, 100);
+      }
+    }
+    ketik();
+  </script></body>
+</html>

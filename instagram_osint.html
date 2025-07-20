@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Instagram OSINT Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Share Tech Mono', monospace;
+      background: url('https://l.top4top.io/p_3473nbtu80.jpg') center/cover no-repeat fixed;
+      color: #0f0;
+      text-align: center;
+      padding: 40px 20px;
+      margin: 0;
+    }
+
+    h1 {
+      text-shadow: 0 0 10px #0f0;
+      font-size: 2em;
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #0f0; }
+      to { text-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc; }
+    }
+
+    input, button {
+      padding: 12px;
+      margin: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+    }
+
+    input {
+      width: 260px;
+      background: rgba(0,0,0,0.6);
+      color: #0f0;
+      border: 1px solid #0f0;
+      text-align: center;
+    }
+
+    button {
+      background-color: #000;
+      color: #0f0;
+      box-shadow: 0 0 15px #0f0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    button:hover:enabled {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #0f0, 0 0 45px #0f0;
+      background-color: #0f0;
+      color: #000;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 5px #0f0; }
+      50% { box-shadow: 0 0 20px #0f0, 0 0 40px #0f0; }
+      100% { box-shadow: 0 0 5px #0f0; }
+    }
+
+    #result {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 450px;
+      margin-left: auto;
+      margin-right: auto;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px #0f0;
+      color: #0f0;
+      display: none;
+      transition: all 0.5s ease;
+    }
+
+    #result.show {
+      display: block;
+    }
+
+    #result img {
+      border-radius: 50%;
+      border: 2px solid #0f0;
+      margin-bottom: 10px;
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+    }
+
+    p {
+      margin: 8px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔍 Instagram OSINT Tool</h1>
+  <input type="text" id="usernameInput" placeholder="Masukkan username Instagram" />
+  <button id="checkBtn" onclick="lookupInstagram()">Cari</button>
+
+  <div id="result"></div>
+
+  <script>
+    async function lookupInstagram() {
+      const username = document.getElementById("usernameInput").value.trim();
+      const btn = document.getElementById("checkBtn");
+      const result = document.getElementById("result");
+
+      if (!username) {
+        alert("Masukkan username terlebih dahulu.");
+        return;
+      }
+
+      btn.textContent = "Loading...";
+      btn.disabled = true;
+      result.classList.remove('show');
+      result.innerHTML = "";
+
+      try {
+        const res = await fetch(
+          `https://instagram120.p.rapidapi.com/api/instagram/hls?username=${encodeURIComponent(username)}`,
+          {
+            method: "GET",
+            headers: {
+              "x-rapidapi-host": "instagram120.p.rapidapi.com",
+              "x-rapidapi-key": "0c857a03f9mshc484268f7bfd700p14544bjsn09659fa0fe8c"
+            }
+          }
+        );
+        const data = await res.json();
+
+        if (data.username) {
+          result.innerHTML = `
+            <img src="${data.profile_pic_url}" alt="Profile picture" />
+            <p><strong>Username:</strong> ${data.username}</p>
+            <p><strong>Nama Lengkap:</strong> ${data.full_name || "-"}</p>
+            <p><strong>Bio:</strong> ${data.biography || "-"}</p>
+            <p><strong>Pengikut:</strong> ${data.edge_followed_by?.count || "?"}</p>
+            <p><strong>Mengikuti:</strong> ${data.edge_follow?.count || "?"}</p>
+            <p><strong>Privat:</strong> ${data.is_private ? "Ya 🔒" : "Tidak 🔓"}</p>
+          `;
+        } else {
+          result.innerHTML = `<p style="color:red;">❌ Username "${username}" tidak ditemukan.</p>`;
+        }
+
+      } catch (e) {
+        console.error("Fetch error:", e);
+        result.innerHTML = `<p style="color:red;">⚠️ Gagal mengambil data dari API.</p>`;
+      } finally {
+        result.classList.add('show');
+        btn.textContent = "Cari";
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>

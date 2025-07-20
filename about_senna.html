@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tentang Senna</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Share Tech Mono', monospace;
+      background: url('https://l.top4top.io/p_3473nbtu80.jpg') center/cover no-repeat fixed;
+      color: #0f0;
+      text-align: center;
+      padding: 50px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      text-shadow: 0 0 15px #0f0;
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #0f0; }
+      to { text-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc; }
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 30px;
+      max-width: 600px;
+      margin: 0 auto;
+      border-radius: 15px;
+      box-shadow: 0 0 25px #0f0;
+    }
+
+    img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #0f0;
+      margin-bottom: 20px;
+    }
+
+    #typed {
+      font-size: 1.1em;
+      margin-top: 20px;
+      white-space: pre-wrap;
+      color: #0f0;
+      text-shadow: 0 0 5px #0f0;
+      min-height: 150px;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://files.catbox.moe/oaq892.jpg" alt="Foto Senna" />
+    <h1>Halo, aku Senna</h1>
+    <div id="typed"></div>
+    <footer>Website ini dibuat dengan ❤️ oleh Senna</footer>
+  </div>
+  <script>
+    const text = `Aku adalah seseorang yang menyukai dunia teknologi, terutama pemrograman dan keamanan siber.\n\n📍 Tinggal di Indonesia\n💻 Hobi: coding, membuat tools, desain web\n🎬 Aku suka banget menonton J-Drama atau drama Jepang\n🔧 bahasa pemrograman favorit: Python, HTML, CSS, JavaScript\n🌐 Aktif di: GitHub, WhatsApp, TikTok.\n Salam kenal ya😊.\n\n banyak orang ngira kalau aku ini perempuan, hahaha padahal aku ini laki laki loh, mungkin... gara - gara aku menggunakan tema pink pada hp ku hihihi,\n\ndari kecil aku selalu di kucilkan dan di bully oleh orang di sekitar ku, hidupku selalu gelap karena itu aku menggunakan tema pink 😁\n\nohh iya ada yang ingin ku sampaikan pada kalian, bahwa aku cinta kalian dan terimakasih telah mendukung ku selama ini, dan sampai ketemu lagi nanti, babay!!.\n\nlove u sherin\n\n ©13と7`;
+
+    const typedEl = document.getElementById("typed");
+    let i = 0;
+
+    function typeEffect() {
+      if (i < text.length) {
+        typedEl.textContent += text.charAt(i);
+        i++;
+        setTimeout(typeEffect, 40);
+      }
+    }
+
+    window.onload = typeEffect;
+  </script>
+</body>
+</html>
