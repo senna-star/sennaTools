@@ -229,9 +229,7 @@ h1 {
     <h1 id="typing"></h1>
     <p>Selamat datang di dimensi digital Senna. Jelajahi Tools, Proyek, dan Informasi Penting lainnya.</p>
     <div class="button-grid">
-<a href="#" class="btn" onclick="aksesTools(); return false;">
-  <i class="fas fa-microchip"></i><span>Tools Sennaxploit</span>
-</a>
+
 
       <a href="csrf.html" class="btn"><i class="fa-solid fa-school"></i><span>web csrf-e kelulusan</span></a>
       <a href="paymentku.html" class="btn"><i class="fas fa-wallet"></i><span>Web Payment</span></a>
@@ -260,18 +258,7 @@ h1 {
       isPlaying ? music.pause() : music.play();
       isPlaying = !isPlaying;
     }
-    function aksesTools() {
-  const password = prompt("Masukkan password untuk mengakses Tools Sennaxploit:");
-  const kunci = "sennaaak"; // Ganti dengan password rahasiamu
-
-  if (password === kunci) {
-    window.location.href = "tools1.html";
-  } else if (password === null || password === "") {
-    alert("Akses dibatalkan.");
-  } else {
-    alert("Password salah! Akses ditolak.");
-  }
-}
+    
 
     function toggleTheme() {
       document.body.classList.toggle("light-theme");
