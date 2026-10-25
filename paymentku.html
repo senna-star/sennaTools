@@ -280,34 +280,43 @@
       }
 
       document.querySelectorAll('.method-btn').forEach(button => {
-        button.addEventListener('click', () => {
-          const method = button.dataset.method;
-          const box = document.querySelector(`[data-result="${method}"]`);
-          const spinner = document.querySelector(`[data-spinner-wrapper="${method}"]`);
-          const content = document.querySelector(`[data-content="${method}"]`);
-          const alreadyVisible = box.classList.contains('active') && content.classList.contains('active');
+    button.addEventListener('click', function () {
+        const method = this.dataset.method;
+        const box = document.querySelector(`[data-result="${method}"]`);
+        const spinner = document.querySelector(
+            `[data-spinner-wrapper="${method}"]`
+        );
+        const content = document.querySelector(
+            `[data-content="${method}"]`
+        );
 
-          document.querySelectorAll('.result-container').forEach(el => el.classList.remove('active'));
-          document.querySelectorAll('.result-content').forEach(el => el.classList.remove('active'));
-          document.querySelectorAll('.spinner-wrapper').forEach(el => el.classList.remove('active'));
-          document.querySelectorAll('.method-btn').forEach(el => { el.disabled = false; el.removeAttribute('aria-busy'); });
+        if (!box || !spinner || !content) {
+            console.error('Elemen pembayaran tidak ditemukan:', method);
+            return;
+        }
 
-          if (alreadyVisible) return;
-          box.classList.add('active');
-          spinner.classList.add('active');
-          button.disabled = true;
-          button.setAttribute('aria-busy', 'true');
-          button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+        // Jika nomor sudah tampil, sembunyikan.
+        if (content.classList.contains('active')) {
+            box.classList.remove('active');
+            content.classList.remove('active');
+            spinner.classList.remove('active');
+            return;
+        }
 
-          window.setTimeout(() => {
+        // Tampilkan area hasil dan animasi loading.
+        box.classList.add('active');
+        spinner.classList.add('active');
+        content.classList.remove('active');
+
+        this.disabled = true;
+
+        setTimeout(() => {
             spinner.classList.remove('active');
             content.classList.add('active');
-            button.disabled = false;
-            button.removeAttribute('aria-busy');
-            button.innerHTML = '<i class="fas fa-eye"></i> View ' + (method === 'gopay' ? 'GoPay' : method.charAt(0).toUpperCase() + method.slice(1)) + ' Number';
-          }, 650);
-        });
-      });
+            this.disabled = false;
+        }, 650);
+    });
+});
 
       document.querySelectorAll('.hide-btn').forEach(button => {
         button.addEventListener('click', () => {
