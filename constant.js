@@ -1,27 +1,27 @@
 export const summaryData = [
   {
     innterText: `<div class="typewriter"><p>Experience</p></div>`,
-    paragraphLines: `Aku memiliki pengalaman 8tahun sekolah, dan akan menuju 9 tahun.`,
+    paragraphLines: `Duta Teknologi Informasi Simbels 26/27`,
     tiitleWord: "Experience...",
-    subtitleWord:"8 tahun sekolah"
+    subtitleWord:"Menjadi Duta Sekolah"
 
   },
   {
     innterText: `<div class="typewriter"><p>Projects</p></div>`,
-    paragraphLines: `Saat ini aku tidak memiliki project apapun `,
-    subtitleWord: "",
+    paragraphLines: `Beberapa Proyek yang akan saya kerjakan di masa jabatan saya`,
+    subtitleWord: "Website Duta Simbels, Digital Literation Website, Website Pengaduan",
     tiitleWord: "Projects",
   },
   {
     innterText: `<div class="typewriter"><p>Skills</p></div>`,
-    paragraphLines: `Html, Javascript, bug, attacker, fix error, resseler panel, resseler Rat, Bot wa Developer, dan Skill lainnya.`,
-    subtitleWord: "",
+    paragraphLines: `Saya dapat membangun Website, Membaca Puisi, dan Memiliki Skill public Speaking yang bagus`,
+    subtitleWord: "Public Speaking, Coding, Membaca Puisi",
     tiitleWord: "Skills",
   },
   {
     innterText: `<div class="typewriter"><p>Working On</p></div>`,
-    paragraphLines: `Masih sekolah.`,
-    subtitleWord: "",
+    paragraphLines: `Ikatan Duta Sma Negeri 19 Palembang`,
+    subtitleWord: "Duta Teknologi Informasi",
     tiitleWord: "Working On",
   },
   {
@@ -35,7 +35,7 @@ Bagi saya, kesendirian bukanlah keterasingan—melainkan cara untuk merangkul pe
   },
   {
     innterText: `<div class="typewriter"><p>SOFIAN</p></div>`,
-    paragraphLines: `Hallo Aku Sofian aku adalah seorang pelajar yg ingin menjadi web developer:).`,
+    paragraphLines: `Menjadi Individu yang lebih baik, berprestasi serta sukses dunia dan akhirat`,
     subtitleWord: "Keinginan",
     tiitleWord: "Sofian",
   }
